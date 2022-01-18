@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+   
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block body %}  
+    <div class="jumbotron">
+        <h1>Welcome to Mymovielist</h1>
+        <h4>a convenient place to keep track of all of your movies and TV shows</h4>
+        <p style="font-size: large;">Please <a href="{{ url_for('auth.login') }}">log in</a> to proceed.</p>
+    </div>   
+{% endblock %}

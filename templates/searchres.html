@@ -1,0 +1,40 @@
+{% extends "search.html" %}
+
+{% block results %}
+    {% if apology %}
+        <div class="alert alert-danger" role="alert">
+            {{ apology }}
+        </div>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Year(s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for title in results %}
+                    <tr class="clickable" onclick="window.location=`/title/{{ title['imdbID'] }}`" data-bs-container="body" data-bs-html="true" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-content="
+                        {% if title['Poster'] != 'N/A' %}
+                            <img src='{{ title['Poster'] }}' width='200' />
+                        {% else %}
+                            No Image
+                        {% endif %}">
+                        <td>{{ title['Title'] }}</td>
+                        <td>{{ title['Type'] }}</td>
+                        <td>{{ title['Year'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+        <script>
+            // Enable poster popovers for table rows
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        </script> 
+    {% endif %}
+{% endblock %}

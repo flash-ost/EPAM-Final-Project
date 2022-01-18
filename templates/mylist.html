@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ current_user.username }}'s List{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>{{ current_user.username }}'s list</h1>
+    </div>
+
+    <div class="container">
+
+        {% if lists %}
+            {% for list in lists %}
+                {% if list %}
+                    <h4>{{ list[0].status.status_name }}</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="text-align: left">Title</th>
+                                <th>Type</th>
+                                <th>Year</th>
+                                <th>Score</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in list %}
+                                <tr>
+                                    <td class="clickable" onclick="window.location=`/title/{{ entry.movie.imdb }}`" style="width: 60%; text-align: left">{{ entry.movie.title }}</td>
+                                    <td style="width: 10%">{{ entry.movie.type.type_name }}</td>
+                                    <td style="width: 10%">{{ entry.movie.year }}</td>
+                                    <td>
+                                        {% if entry.score %}
+                                            {{ entry.score }}
+                                        {% else %}
+                                            -
+                                        {% endif %}       
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Edit entry
+                                        </button>
+                                        <div class="dropdown-menu px-4 py-3">
+                                            <form action="" method="post" autocomplete="off" novalidate>
+                                                {{ form.hidden_tag() }} 
+                                                <div class="mb-3">
+                                                    <label for="status" class="form-label fw-bold">{{ form.status.label }}</label>
+                                                    <p>{{ form.status(class_ = "form-select") }}</p>
+                                                    {% for error in form.status.errors %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ error }}
+                                                    </div>    
+                                                    {% endfor %}
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="status" class="form-label fw-bold">{{ form.score.label }}</label>
+                                                    <p>{{ form.score(class_ = "form-select") }}</p>
+                                                    {% for error in form.score.errors %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ error }}
+                                                    </div>    
+                                                    {% endfor %}
+                                                </div>
+                                                <input id="imdb" name ="imdb" type="hidden" value="{{ entry.movie.imdb }}">
+                                                <input class="btn btn-outline-primary" id="submit" name ="submit" type="submit" value="Edit">
+                                                <input class="btn btn-outline-primary d-inline" id="submit" name ="submit" type="submit" value="Delete"> 
+                                            </form>
+                                        </div>      
+                                    </td>
+                                </tr>
+                            {% endfor %}     
+                        </tbody> 
+                    </table>
+                    <br>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}   
+            <p>Wow, so empty.</p>
+        {% endif %}          
+    </div>  
+{% endblock %}
