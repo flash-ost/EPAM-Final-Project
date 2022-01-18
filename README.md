@@ -1,34 +1,81 @@
 # EPAM Final Project: MyMovieList
 ---
-## Tabe of Contents
+## Table of Contents
 - [Overview](#overview)
-- [How to Use](#how-to-use)
-- [License](#license)
+- [Setup](#setup)
+- [Author Info](#author-info)
 ---
-# Description
+## Overview
 MyMovielist is a web app that allows users to keep track of their movies and TV shows.
 ### Structure
-1) migrations — migration files to manage database schema changes
-2) models — modules with Python classes describing DB models
-3) service — modules with functions / classes to work with DB (CRUD operations)
-5) rest — modules with RESTful service implementation
-6) templates — web app html templates
-7) static — static files (css)
-8) tests — modules with unit tests
-9) views — modules with Web controllers / views
+- migrations — migration files to manage database schema changes
+- models — modules with Python classes describing DB models
+- service — modules with functions / classes to work with DB (CRUD operations)
+- rest — modules with RESTful service implementation
+- templates — web app html templates
+- static — static files (css)
+- tests — modules with unit tests
+- views — modules with Web controllers / views
 ---
 ### Authentication
-Upon arriving on the landing page user is asked to log in. If user doesn't have an account yet, there is also a link to the registration page.
-![auth](https://user-images.githubusercontent.com/41839630/149951681-8776705e-2a46-46b1-bc9b-b15b0c680ac0.png)
+Upon arriving on the landing page user is asked to log in. There is a link to the registration page for those who don't have an account yet.
+![auth](https://user-images.githubusercontent.com/41839630/150019698-a2bcdbd4-ef56-4203-b009-ec9abe8a38c6.jpg)
 
 ### Web app tabs
 #### Search tab
-After successful authentication user is redirected to the search page. Search results are clickable and have popover posters.
+After successful authentication user is redirected to the search tab. Search results are clickable and have popover posters.
 ![search](https://user-images.githubusercontent.com/41839630/149953587-c5162875-24ce-477a-a65d-8caece2daf61.jpg)
 
 If the user clicks on one of the search results, app redirects to that title's page. There user can check the title's info and add it to his/her list, specifying watching status and optionally a score.
-![titleadd](https://user-images.githubusercontent.com/41839630/149957386-79ed3d54-abba-41a0-8109-a99be0dac37f.jpg)
+![titleadd](https://user-images.githubusercontent.com/41839630/150017115-d7748c0e-1f25-4c36-8f8c-8e6dd35ae391.jpg)
 
-If the title is already in user's list, there is an info box, indicating user's watching status and score. User can edit them or delete entry.
-![titleedit](https://user-images.githubusercontent.com/41839630/149957887-e42dbd3a-4efe-426d-96e5-f475a28952e4.jpg)
+If the title is already in user's list, there is an info box indicating user's watching status and score. User can edit them or delete entry.
+![titleedit](https://user-images.githubusercontent.com/41839630/150028944-7d677e95-5aa5-4604-bf55-005161ad3269.jpg)
 
+#### My Lists tab
+The second tab is where all of user's lists are displayed. Every entry also has edit and delete button.
+![list](https://user-images.githubusercontent.com/41839630/150019408-bdfa28ad-efc2-43b0-8326-68cc8aa2892f.jpg)
+
+## Setup
+1) Install Python.
+```html
+    https://www.youtube.com/watch?v=bXWlyOMYpRE
+```
+2) Install necessary packages with command:
+```html
+    pip install -r /path/to/requirements.txt
+```
+3) App uses a third-party OMDb API to get information about titles, so you need to request an API key via this form:
+```html
+    http://www.omdbapi.com/apikey.aspx
+```
+  After you receive the key export it to app's environment with this command:
+```html
+    export API_KEY=value
+```
+4) Create a db with the following command:
+```html
+    flask db upgrade
+```
+5) Call Flask shell
+```html
+    flask shell
+```
+and pre-populate two columns of db that won't be changed in the future by running:
+```html
+    from service.crud import populate_db
+    populate_db()
+```
+6) Now just set the app name in the environment
+```html
+    export FLASK_APP=mymovielist.py
+```
+and run the app with
+```html
+    flask run
+```
+
+## Author Info
+- Name: Ostap Marushchak
+- Email: ost.marushchak@gmail.com
+- License: MIT
