@@ -61,7 +61,7 @@ The second tab is where all of user's lists are displayed. Every entry also has 
 ```html
     flask shell
 ```
-and pre-populate two columns of db that won't be changed in the future by running:
+and pre-populate two columns of the db by running:
 ```html
     from service.crud import populate_db
     populate_db()
