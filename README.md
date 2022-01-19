@@ -66,7 +66,7 @@ and pre-populate two columns of the db by running:
     from service.crud import populate_db
     populate_db()
 ```
-6) Now just set the app name in the environment
+6) Set the app name in the environment
 ```html
     export FLASK_APP=mymovielist.py
 ```
