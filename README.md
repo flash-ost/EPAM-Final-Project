@@ -43,7 +43,7 @@ The second tab is where all of user's lists are displayed. Every entry also has 
 ```
 2) Install necessary packages with command:
 ```html
-    pip install -r /path/to/requirements.txt
+    pip install -r requirements.txt
 ```
 3) App uses a third-party OMDb API to get information about titles, so you need to request an API key via this form:
 ```html
