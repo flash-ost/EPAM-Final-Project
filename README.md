@@ -6,7 +6,7 @@
 - [Author Info](#author-info)
 ---
 ## Overview
-MyMovielist is a web app that allows users to keep track of their movies and TV shows.
+MyMovieList is a web app that allows users to keep track of their movies and TV shows.
 ### Structure
 - migrations — migration files to manage database schema changes
 - models — modules with Python classes describing DB models
