@@ -6,7 +6,7 @@
 - [Author Info](#author-info)
 ---
 ## Overview
-MyMovielist is a web app that allows users to keep track of their movies and TV shows.
+MyMovieList is a web app that allows users to keep track of their movies and TV shows.
 ### Structure
 - migrations — migration files to manage database schema changes
 - models — modules with Python classes describing DB models
@@ -66,7 +66,7 @@ and pre-populate two columns of the db by running:
     from service.crud import populate_db
     populate_db()
 ```
-6) Now just set the app name in the environment
+6) Set the app name in the environment
 ```html
     export FLASK_APP=mymovielist.py
 ```
