@@ -13,6 +13,5 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Make sure API key is set
-    API_KEY = os.environ.get("API_KEY")
-    if not API_KEY:
+    if not os.environ.get("API_KEY"):
         raise RuntimeError("API_KEY not set")
