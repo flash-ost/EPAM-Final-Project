@@ -4,10 +4,12 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
+from os import environ
 
 
 STATUSES = ('Plan To Watch', 'Watching', 'Completed', 'Dropped')
 TYPES = ('movie', 'series')
+API_KEY = environ.get("API_KEY")
 
 
 db = SQLAlchemy()

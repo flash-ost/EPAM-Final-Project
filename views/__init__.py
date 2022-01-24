@@ -1,0 +1,3 @@
+"""
+Module contains Web views.
+"""

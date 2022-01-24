@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Overview](#overview)
 - [Setup](#setup)
+- [API Routes](#api-routes)
 - [Author Info](#author-info)
 ---
 ## Overview
@@ -38,41 +39,60 @@ The second tab is where all of user's lists are displayed. Every entry also has 
 
 ## Setup
 1) Install Python.
-```html
+```
     https://www.youtube.com/watch?v=bXWlyOMYpRE
 ```
 2) Install necessary packages with command:
-```html
+```
     pip install -r requirements.txt
 ```
 3) App uses a third-party OMDb API to get information about titles, so you need to request an API key via this form:
-```html
+```
     http://www.omdbapi.com/apikey.aspx
 ```
   After you receive the key export it to app's environment with this command:
-```html
+```
     export API_KEY=value
 ```
 4) Create a db with the following command:
-```html
+```
     flask db upgrade
 ```
 5) Call Flask shell
-```html
+```
     flask shell
 ```
 and pre-populate two columns of the db by running:
-```html
+```
     from service.crud import populate_db
     populate_db()
 ```
 6) Set the app name in the environment
-```html
+```
     export FLASK_APP=mymovielist.py
 ```
 and run the app with
-```html
+```
     flask run
+```
+
+## Api Routes
+/api/user  
+- GET — get a list of user's entries sorted by watching status  
+- POST — register a new user
+```
+    {"username": "", "password": ""}
+```
+/api/entry  
+- GET — get entry's info by IMDB ID in json format  
+- DELETE — delete entry
+```
+    {"username": "", "password": "", "imdb": ""}
+```
+- POST — create new entry  
+- PUT — update entry's status and/or score
+```
+    {"username": "", "password": "", "imdb": "", "status": "", "score": ""}
 ```
 
 ## Author Info

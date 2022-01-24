@@ -1,5 +1,5 @@
 from forms import LoginForm, RegistrationForm
-from service.crud import check_credentials, register_user
+from service import check_credentials, register_user
 from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import current_user, login_user, logout_user
 
@@ -44,7 +44,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         if register_user(form.username.data, form.password.data):
-            flash('Congratulations, you are now a registered user!', 'success')
+            flash('Congratulations, you have been registered! Now you can log in', 'success')
             return redirect(url_for('auth.login'))
         else:
             flash('Something went wrong, please try again.', 'danger')

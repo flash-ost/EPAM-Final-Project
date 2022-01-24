@@ -1,5 +1,9 @@
+"""
+Module contains web forms.
+"""
+
 from mymovielist import STATUSES
-from service.crud import check_username
+from service import check_username
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import DataRequired, EqualTo, ValidationError

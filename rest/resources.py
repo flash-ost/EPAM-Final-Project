@@ -1,14 +1,12 @@
-import service.crud as crud
+import service as crud
 
-from mymovielist import STATUSES
+from mymovielist import API_KEY, STATUSES
 from flask import request
 from flask_restful import reqparse, Resource
 from json import loads
 from os import environ
 from requests import get
 
-
-api_key = environ.get("API_KEY")
 
 parser = reqparse.RequestParser()
 parser.add_argument('username', type=str, help='Your username (required)', required=True)
@@ -53,6 +51,9 @@ class User(Resource):
     def post(self):
         """Register a user."""
         args = parser.parse_args()
+        # Handle missing credentials
+        if not args['username'] or not args['password']:
+            return {'message': "Credentials can't be empty"}, 400
 
         # Handle duplicate username
         if crud.check_username(args['username']):
@@ -68,15 +69,31 @@ class User(Resource):
 class Entry(Resource):
     """Functions to create (post), update (put), and delete entries."""
     @authorize
+    def get(self):
+        """Get a single entry."""
+        entry = crud.get_entry(args['username'], args['imdb'])
+        if not entry:
+            return {'message': "Entry doesn't exist"}, 400
+        else:
+            response = {'IMDB': entry.movie.imdb, 
+                        'Title': entry.movie.title, 
+                        'Type': entry.movie.type.type_name,
+                        'Year': entry.movie.year,
+                        'Status': entry.status.status_name,
+                        'Score': entry.score
+                       }
+            return response           
+
+
+    @authorize
     def post(self):
         """Create a new entry."""
         # Ensure user provided a status
         if not args['status']:
             return {'message': 'Status is required'}, 400
-        print(args)
 
         # Ensure user provided a valid IMDB ID
-        titledata = loads(get(f'http://www.omdbapi.com/?apikey={api_key}&plot=short&i={args["imdb"]}').text)
+        titledata = loads(get(f'http://www.omdbapi.com/?apikey={API_KEY}&plot=short&i={args["imdb"]}').text)
         if titledata['Response'] == 'False':
             return {'message': titledata['Error']}, 400
 

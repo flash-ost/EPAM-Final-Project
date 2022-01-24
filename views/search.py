@@ -1,14 +1,12 @@
-from mymovielist import TYPES, STATUSES
+from mymovielist import API_KEY, STATUSES, TYPES
 from forms import EntryForm
-from service.crud import add_entry, delete_entry, edit_entry, get_entry, get_list
+from service import add_entry, delete_entry, edit_entry, get_entry, get_list
 from flask import Blueprint, render_template, redirect, request, flash, url_for
 from flask_login import current_user, login_required
 from json import loads
-from os import environ
 from requests import get
 
 
-api_key = environ.get("API_KEY")
 bp = Blueprint('search', __name__)
 
 @bp.route("/", methods=["GET"])
@@ -29,7 +27,7 @@ def search():
     else:    
         # Send request to OMDB
         query = request.form.get("query")
-        response = loads(get(f'http://www.omdbapi.com/?apikey={api_key}&s={query}').text)
+        response = loads(get(f'http://www.omdbapi.com/?apikey={API_KEY}&s={query}').text)
         if response['Response'] == 'False':
             return render_template('searchres.html', apology=response['Error'])
 
@@ -49,7 +47,7 @@ def search():
 def title(imdb):
     """Render title page and handle add/edit/delete entry requests."""
     # Send request to OMDB
-    titledata = loads(get(f'http://www.omdbapi.com/?apikey={api_key}&plot=full&i={imdb}').text)
+    titledata = loads(get(f'http://www.omdbapi.com/?apikey={API_KEY}&plot=full&i={imdb}').text)
 
     # Handle incorrect requests
     if titledata['Response'] == 'False':
