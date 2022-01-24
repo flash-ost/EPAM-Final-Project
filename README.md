@@ -64,7 +64,7 @@ The second tab is where all of user's lists are displayed. Every entry also has 
 ```
 and pre-populate two columns of the db by running:
 ```
-    from service.crud import populate_db
+    from service import populate_db
     populate_db()
 ```
 6) Set the app name in the environment
